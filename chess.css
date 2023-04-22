@@ -1,0 +1,19 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.cellSize{
+    height: 75px;
+    width: 75px;
+}
+
+
+
+#chessContainer{
+    background-color: #caf0f8;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
