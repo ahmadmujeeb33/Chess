@@ -2,6 +2,7 @@ let board = new Board()
 board.createBoard()
 let startingPosition = board.getStartingPosition()
 let pieces
+let nextColor = "W"
 
 let deletePiece = ()=>{
 
@@ -10,39 +11,47 @@ let deletePiece = ()=>{
     console.log(child.parentNode)
 
     let parent = child.parentNode
-  
-    while(parent.hasChildNodes()){
-        parent.removeChild(parent.childNodes[0]);
-    }
 
+    parent.innerHTML = ""
+  
     startingPosition[pieces.getCurrentMove] = "";
 
 }
 
-let addPiece = ()=>{
+let addPiece = (event)=>{
+
+
+    let prevId = pieces.getNewMove()
+
+    document.getElementById(pieces.getNewMove()).parentNode.innerHTML = ""
+
     let createImage = document.createElement("img");
     createImage.height = 70;
     createImage.width = 70;
-    createImage.src = startingPosition[pieces.getCurrentMove()];
+    createImage.src = "./Assets/" + startingPosition[pieces.getCurrentMove()] +   ".png"
+    
+    createImage.setAttribute("name",startingPosition[pieces.getCurrentMove()])
 
-    let separator = "/Assets/";
-    let str = startingPosition[pieces.getCurrentMove()]
-    let substring = str.substring(str.indexOf(separator)+8, str.length-4);
+   
 
-    createImage.setAttribute("name",substring)
+    event.currentTarget.appendChild(createImage);
+    createImage.setAttribute("id",prevId)
+    startingPosition[prevId] = startingPosition[pieces.getCurrentMove()];
 
 
-    document.getElementById(pieces.getNewMove()).appendChild(createImage);
-    document.getElementById(pieces.getNewMove()).removeAttribute('id')
-    createImage.setAttribute("id",pieces.getNewMove())
-    startingPosition[pieces.getNewMove()] = startingPosition[pieces.getCurrentMove()];
+    let child = document.getElementById(pieces.getCurrentMove());
+    
+    let parent = child.parentNode
+
+    parent.innerHTML = ""
+
+    startingPosition[pieces.getCurrentMove()] = "";
+
 
 }
 
 let createPiece = (pieceType) => {
-    console.log(pieceType)
     let pieces = {"Pawn":new Pawn()}
-    console.log(pieces[pieceType])
     return pieces[pieceType]
 }
 
@@ -51,8 +60,7 @@ let Move = (event)=>{
 
     console.log(event.target)
 
-
-    if(event.target.name != undefined){
+    if(event.target.name != undefined && nextColor == event.target.name[0]){
         pieces = createPiece(event.target.name.substring(1,event.target.name.length))
         pieces.setCurrentMove(event.target.id)
         pieces.setColor(event.target.name[0])
@@ -60,11 +68,21 @@ let Move = (event)=>{
     }
 
 
-    else if(pieces!=undefined && pieces.isValid(event.target.id)){
+    else if(pieces!=undefined && (pieces.isValid(event.target.id)) || pieces.isAttack(event.target.id,startingPosition)){
+
         pieces.setNewMove(event.target.id)
-        addPiece()
-        deletePiece()
+        addPiece(event)
+        // deletePiece()
+
+        nextColor = pieces.getColor() == "W"?"B":"W"
+
     }
+
+
+
+    
+
+    
 
    
 }

@@ -3,6 +3,7 @@ class Pieces {
 
     currentPosition
     currentPlayer
+    nextPlayerTurn
 
 
     // setCurrentPlayer(currentPlayer){
@@ -16,6 +17,9 @@ class Pieces {
     // setCurrentPosition(position){
     //     this.currentPosition = position
     // }
+
+
+   
 
     
 
