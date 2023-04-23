@@ -3,6 +3,7 @@ board.createBoard()
 let startingPosition = board.getStartingPosition()
 let pieces
 let nextColor = "W"
+let pieceMade = false
 
 let deletePiece = ()=>{
 
@@ -51,16 +52,19 @@ let addPiece = (event)=>{
 }
 
 let createPiece = (pieceType) => {
-    let pieces = {"Pawn":new Pawn()}
+    let pieces = {"Pawn":new Pawn(),"Bishop":new Bishop()}
     return pieces[pieceType]
 }
 
 
 let Move = (event)=>{
 
-    console.log(event.target)
+    console.log(event.target.name)
+    console.log(nextColor)
+
 
     if(event.target.name != undefined && nextColor == event.target.name[0]){
+        console.log("!!!!!!!!!!!!!!!!!")
         pieces = createPiece(event.target.name.substring(1,event.target.name.length))
         pieces.setCurrentMove(event.target.id)
         pieces.setColor(event.target.name[0])
@@ -68,13 +72,16 @@ let Move = (event)=>{
     }
 
 
-    else if(pieces!=undefined && (pieces.isValid(event.target.id)) || pieces.isAttack(event.target.id,startingPosition)){
+    else if(pieces!=undefined && (pieces.isValid(event.target.id,startingPosition)) || pieces.isAttack(event.target.id,startingPosition)){
 
         pieces.setNewMove(event.target.id)
         addPiece(event)
         // deletePiece()
 
         nextColor = pieces.getColor() == "W"?"B":"W"
+        console.log(nextColor)
+        pieces = undefined
+
 
     }
 

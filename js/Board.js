@@ -49,14 +49,12 @@ class Board{
                 }
                 else{
                     let tempTag = document.createElement("div")
-                    // tempTag.style.height = "8vh"
                     tempTag.style.height = "100%"
                     tempTag.style.width = "100%"
                     tempTag.setAttribute("id",i.toString() + j.toString())
 
                     cell.append(tempTag)
                     
-                    // cell.setAttribute("id",i.toString() + j.toString())
 
                 }
                
