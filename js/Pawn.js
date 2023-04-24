@@ -64,32 +64,32 @@ class Pawn extends Pieces{
 
     isValid(newVal,currentBoard){
 
-        let otherVal = this.color == "B" ? -1:1
-
-        
-       
+        let otherVal = this.color == "B" ? -1:1       
         let valToCheck = this.color == "B" ? '1':'6'
         
-        if(currentBoard[newVal]==""){
+        // if(currentBoard[newVal]==""){
             
-            console.log("thisssssssssssssssssss")
+        console.log("thisssssssssssssssssss")
 
-            const forwardMove =
-                parseInt(this.currentMove[0]) === parseInt(newVal[0]) + otherVal &&
-                parseInt(this.currentMove[1]) === parseInt(newVal[1]);
+        const forwardMove =
+            parseInt(this.currentMove[0]) === parseInt(newVal[0]) + otherVal &&
+            parseInt(this.currentMove[1]) === parseInt(newVal[1]);
 
-        
-            const starterForwardMove =
-                this.currentMove[0] === valToCheck &&
-                parseInt(this.currentMove[0]) === parseInt(newVal[0]) + otherVal * 2 &&
-                parseInt(this.currentMove[1])=== parseInt(newVal[1]);
+    
+        const starterForwardMove =
+            this.currentMove[0] === valToCheck &&
+            parseInt(this.currentMove[0]) === parseInt(newVal[0]) + otherVal * 2 &&
+            parseInt(this.currentMove[1])=== parseInt(newVal[1]);
 
-            if(forwardMove || starterForwardMove){
-                return true
-            }
-           
+        if(forwardMove || starterForwardMove){
+            return true
         }
+           
+        // }
 
+        if(this.isAttack(newVal,currentBoard)){
+            return true
+        }
     
 
         return false;

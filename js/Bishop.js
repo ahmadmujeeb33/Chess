@@ -30,19 +30,53 @@ class Bishop extends Pieces{
         return this.color
     }
 
-    isAttack(newVal,currentBoard){
-        console.log("in this")
-        if(currentBoard[newVal][0] != this.color && currentBoard[newVal].substring(currentBoard[newVal].length-4)!="King" && Math.abs(newVal[0] - this.currentMove[0]) ===  Math.abs(newVal[1] - this.currentMove[1])){
-            return true
-        }
-
-        return false
-    }
-    
 
     isValid(newVal,currentBoard){
 
-        if ( currentBoard[newVal]=="" && Math.abs(newVal[0] - this.currentMove[0]) ===  Math.abs(newVal[1] - this.currentMove[1])){
+        console.log("in this")
+
+        let currentRow = parseInt(this.currentMove[0])
+        let currentCol = parseInt(this.currentMove[1])
+
+        let newValRow =  parseInt(newVal[0])
+        let newValCol =  parseInt(newVal[1])
+
+        let rowStep = (newValRow > currentRow) ? 1 : -1;
+        let colStep = (currentCol < newValCol) ? 1 : -1;
+
+        let row = currentRow
+        let col = currentCol
+
+        console.log(row)
+        console.log(col)
+
+        console.log(newValRow)
+        console.log(newValCol)
+
+        console.log(rowStep)
+        console.log(colStep)
+
+        console.log(this.color)
+        console.log(currentBoard[newVal][0])
+
+        // currentBoard[row.toString() + col.toString()] != "" && 
+
+        while(row != newValRow && col != newValCol){
+        
+            row+=rowStep
+            col+=colStep
+
+            if(currentBoard[row.toString() + col.toString()][0] == this.color){
+                console.log("in here")
+                return false;
+            }
+
+            
+        }
+    
+        
+       
+        if (currentBoard[newVal][0] != this.color && currentBoard[newVal].substring(currentBoard[newVal].length-4)!="King" && Math.abs(newVal[0] - this.currentMove[0]) ===  Math.abs(newVal[1] - this.currentMove[1])){
             return true
         }
 

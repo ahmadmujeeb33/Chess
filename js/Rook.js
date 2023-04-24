@@ -31,17 +31,10 @@ class Rook extends Pieces{
     }
 
 
-    isAttack(newVal,currentBoard){
-        if(currentBoard[newVal][0] != this.color && currentBoard[newVal].substring(currentBoard[newVal].length-4)!="King" && (newVal[0] == this.currentMove[0] || newVal[1] == this.currentMove[1])){
-            return true
-        }
-
-        return false
-    }
     
 
     isValid(newVal,currentBoard){
-        if (currentBoard[newVal]=="" && (newVal[0] == this.currentMove[0] || newVal[1] == this.currentMove[1])){
+        if (currentBoard[newVal][0] != this.color && currentBoard[newVal].substring(currentBoard[newVal].length-4)!="King" && (newVal[0] == this.currentMove[0] || newVal[1] == this.currentMove[1])){
             return true
         }
 

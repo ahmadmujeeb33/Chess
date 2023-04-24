@@ -52,7 +52,7 @@ let addPiece = (event)=>{
 }
 
 let createPiece = (pieceType) => {
-    let pieces = {"Pawn":new Pawn(),"Bishop":new Bishop(),"Rook":new Rook()}
+    let pieces = {"Pawn":new Pawn(),"Bishop":new Bishop(),"Rook":new Rook(),"Knight":new Knight()}
     return pieces[pieceType]
 }
 
@@ -72,7 +72,7 @@ let Move = (event)=>{
     }
 
 
-    else if(pieces!=undefined && (pieces.isValid(event.target.id,startingPosition)) || pieces.isAttack(event.target.id,startingPosition)){
+    else if(pieces!=undefined && (pieces.isValid(event.target.id,startingPosition))){
 
         pieces.setNewMove(event.target.id)
         addPiece(event)
