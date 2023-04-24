@@ -1,13 +1,13 @@
-class Pawn extends Pieces{
+class Pawn{
 
     currentMove
     newMove
     color
     nextPlayerTurn
 
-
-    setCurrentMove(move){
-        this.currentMove = move
+    constructor(currentMove,color){
+        this.currentMove = currentMove
+        this.color = color
     }
 
     getCurrentMove(){
@@ -22,10 +22,6 @@ class Pawn extends Pieces{
     setNewMove(position){
         console.log("in this",position)
         this.newMove = position
-    }
-
-    setColor(color){
-        this.color = color
     }
 
     getColor(){

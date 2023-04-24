@@ -1,16 +1,18 @@
-class Bishop extends Pieces{
+class Bishop{
 
     currentMove
     newMove
     color
     nextPlayerTurn
 
-
-    setCurrentMove(move){
-        this.currentMove = move
+    constructor(currentMove,color){
+        this.currentMove = currentMove
+        this.color = color
     }
 
+
     getCurrentMove(){
+        console.log("thissssssssssssss")
         return this.currentMove
     }
 
@@ -19,12 +21,10 @@ class Bishop extends Pieces{
     }
 
     setNewMove(position){
+        console.log("in this",position)
         this.newMove = position
     }
 
-    setColor(color){
-        this.color = color
-    }
 
     getColor(){
         return this.color

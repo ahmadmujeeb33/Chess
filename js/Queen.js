@@ -1,13 +1,14 @@
-class Queen extends Pieces{
+class Queen {
     currentMove
     newMove
     color
     nextPlayerTurn
 
-
-    setCurrentMove(move){
-        this.currentMove = move
+    constructor(currentMove,color){
+        this.currentMove = currentMove
+        this.color = color
     }
+
 
     getCurrentMove(){
         console.log("thissssssssssssss")
@@ -23,9 +24,7 @@ class Queen extends Pieces{
         this.newMove = position
     }
 
-    setColor(color){
-        this.color = color
-    }
+  
 
     getColor(){
         return this.color
@@ -34,15 +33,11 @@ class Queen extends Pieces{
 
     isValid(newVal,currentBoard){
 
-        let rook = new Rook()
-        rook.setCurrentMove(this.currentMove)
-        rook.setColor(this.color)
-        
+        let rook = new Rook(this.currentMove,this.color)
+       
+    
+        let bishop = new Bishop(this.currentMove,this.color)
 
-        let bishop = new Bishop()
-
-        bishop.setCurrentMove(this.currentMove)
-        bishop.setColor(this.color)
 
 
         if(rook.isValid(newVal,currentBoard) || bishop.isValid(newVal,currentBoard)){
