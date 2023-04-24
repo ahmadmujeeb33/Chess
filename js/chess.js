@@ -101,8 +101,14 @@ let isCheck = (color)=>{
     let movements = [ [1,-1],
                       [-1,1],
                       [1,1],
-                      [-1,-1]
+                      [-1,-1],
+
+                      [1,0],
+                    [0,-1],
+                    [0,1],
+                    [-1,0]
                     ]
+    let piece = "Bishop"
 
     for(let i=0;i<movements.length;i++){
 
@@ -111,10 +117,7 @@ let isCheck = (color)=>{
     
         while(currentBoard[row.toString()+col.toString()]!=undefined){
        
-
-          
-
-            if(currentBoard[row.toString()+col.toString()] == color + "Bishop" || currentBoard[row.toString()+col.toString()] == color+"Queen"){
+            if(currentBoard[row.toString()+col.toString()] == color + piece || currentBoard[row.toString()+col.toString()] == color+"Queen"){
                 alert(nextColor + " is Check")
                 break
             }
@@ -129,40 +132,44 @@ let isCheck = (color)=>{
             col+=movements[i][1]
         }
 
+        if(i==3){
+            piece = "Rook"
+        }
+
     }
 
-    movements = [ [1,0],
-                [0,-1],
-                [0,1],
-                [-1,0]
-                ]
+    // movements = [ [1,0],
+    //             [0,-1],
+    //             [0,1],
+    //             [-1,0]
+    //             ]
 
-    for(let i=0;i<movements.length;i++){
+    // for(let i=0;i<movements.length;i++){
 
-        let row = parseInt(kingMove[0]) + movements[i][0]
-        let col = parseInt(kingMove[1]) + movements[i][1]
+    //     let row = parseInt(kingMove[0]) + movements[i][0]
+    //     let col = parseInt(kingMove[1]) + movements[i][1]
     
-        while(currentBoard[row.toString()+col.toString()]!=undefined){
+    //     while(currentBoard[row.toString()+col.toString()]!=undefined){
         
-            let strRowCol = row.toString()+col.toString()
+    //         let strRowCol = row.toString()+col.toString()
             
-            if(currentBoard[strRowCol] == color+ "Rook" || currentBoard[strRowCol] == color+ "Queen"){
-                console.log(strRowCol)
-                alert(nextColor + " is Check")
-                break
-            }
+    //         if(currentBoard[strRowCol] == color+ "Rook" || currentBoard[strRowCol] == color+ "Queen"){
+    //             console.log(strRowCol)
+    //             alert(nextColor + " is Check")
+    //             break
+    //         }
 
-            if(currentBoard[row.toString()+col.toString()] != ""){
-                break
-            }
+    //         if(currentBoard[row.toString()+col.toString()] != ""){
+    //             break
+    //         }
 
             
     
-            row+=movements[i][0]
-            col+=movements[i][1]
-        }
+    //         row+=movements[i][0]
+    //         col+=movements[i][1]
+    //     }
 
-    }
+    // }
 
     console.log(color)
     console.log(kingMove)
