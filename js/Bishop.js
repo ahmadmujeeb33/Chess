@@ -58,6 +58,8 @@ class Bishop{
                 return false;
             }
 
+
+
             if(currentBoard[currentPoint][0]!=this.color && currentBoard[currentPoint]!="" && currentBoard[currentPoint] != currentBoard[newVal]){               
                 return false
                 

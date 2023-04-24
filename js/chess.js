@@ -62,7 +62,12 @@ let addPiece = (event)=>{
 }
 
 let createPiece = (pieceType,currentMove,color) => {
-    let pieces = {"Pawn":new Pawn(currentMove,color),"Bishop":new Bishop(currentMove,color),"Rook":new Rook(currentMove,color),"Knight":new Knight(currentMove,color),"Queen":new Queen(currentMove,color)}
+    let pieces = {"Pawn":new Pawn(currentMove,color)
+                , "Bishop":new Bishop(currentMove,color),
+                  "Rook":new Rook(currentMove,color),
+                  "Knight":new Knight(currentMove,color),
+                  "Queen":new Queen(currentMove,color),
+                   "King":new King(currentMove,color)}
     return pieces[pieceType]
 }
 
