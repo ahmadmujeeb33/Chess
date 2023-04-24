@@ -1,9 +1,10 @@
 let board = new Board()
 board.createBoard()
-let startingPosition = board.getStartingPosition()
+let currentBoard = board.getStartingPosition()
 let pieces
 let nextColor = "W"
-let pieceMade = false
+let whiteKingPosition = ""
+let blackKingPosition = ""
 
 let deletePiece = ()=>{
 
@@ -15,7 +16,7 @@ let deletePiece = ()=>{
 
     parent.innerHTML = ""
   
-    startingPosition[pieces.getCurrentMove] = "";
+    currentBoard[pieces.getCurrentMove] = "";
 
 }
 
@@ -29,15 +30,15 @@ let addPiece = (event)=>{
     let createImage = document.createElement("img");
     createImage.height = 70;
     createImage.width = 70;
-    createImage.src = "./Assets/" + startingPosition[pieces.getCurrentMove()] +   ".png"
+    createImage.src = "./Assets/" + currentBoard[pieces.getCurrentMove()] +   ".png"
     
-    createImage.setAttribute("name",startingPosition[pieces.getCurrentMove()])
+    createImage.setAttribute("name",currentBoard[pieces.getCurrentMove()])
 
    
 
     event.currentTarget.appendChild(createImage);
     createImage.setAttribute("id",prevId)
-    startingPosition[prevId] = startingPosition[pieces.getCurrentMove()];
+    currentBoard[prevId] = currentBoard[pieces.getCurrentMove()];
 
 
     let child = document.getElementById(pieces.getCurrentMove());
@@ -56,7 +57,7 @@ let addPiece = (event)=>{
     parent.append(tempTag)
 
 
-    startingPosition[pieces.getCurrentMove()] = "";
+    currentBoard[pieces.getCurrentMove()] = "";
 
 
 }
@@ -72,28 +73,104 @@ let createPiece = (pieceType,currentMove,color) => {
 }
 
 
+let getKingPosition = ()=>{
+
+    const filteredObj = Object.fromEntries(
+        Object.entries(currentBoard).filter(([key, value]) => value.substring(1,value.length) == "King" && value[0] != nextColor)
+    );
+
+    const val = Object.values(filteredObj)[0];
+    const key = Object.keys(filteredObj)[0]
+
+    if(val[0] == "B"){
+        blackKingPosition = key
+    }
+    
+    else{
+        whiteKingPosition = key
+    }
+
+
+    console.log(filteredObj)
+}
+
+let isCheck = (color)=>{
+    let kingMove = color == "W" ? blackKingPosition : whiteKingPosition
+    // let diagnoalMovements = [
+    //                         [kingMove[0],3,kingMove[1],7]
+                        
+    //                     ]
+
+    let movements = [ [1,-1],
+                      [-1,1],
+                      [1,1],
+                      [-1,-1]
+                    ]
+
+   
+    // console.log(currentBoard[row.toString()+col.toString()])
+
+    for(let i=0;i<movements.length;i++){
+
+        let row = parseInt(kingMove[0]) + movements[i][0]
+        let col = parseInt(kingMove[1]) + movements[i][1]
+    
+        while(currentBoard[row.toString()+col.toString()]!=undefined){
+       
+            let length = currentBoard[row.toString()+col.toString()].length
+
+          
+
+            if(currentBoard[row.toString()+col.toString()].substring(1,length) == "Bishop" || currentBoard[row.toString()+col.toString()].substring(1,length) == "Queen"){
+                alert(nextColor + " is Check")
+                break
+            }
+
+            if(currentBoard[row.toString()+col.toString()].substring(1,length) != ""){
+                break
+            }
+
+            
+    
+            row+=movements[i][0]
+            col+=movements[i][1]
+        }
+
+    }
+
+   
+
+
+
+
+}
+
+
 let Move = (event)=>{
 
-    console.log(event.target.id)
 
 
     if(event.target.name != undefined && nextColor == event.target.name[0]){
-        console.log("!!!!!!!!!!!!!!!!!")
         pieces = createPiece(event.target.name.substring(1,event.target.name.length),event.target.id,event.target.name[0])
         
 
     }
 
 
-    else if(pieces!=undefined && (pieces.isValid(event.target.id,startingPosition))){
+    else if(pieces!=undefined && (pieces.isValid(event.target.id,currentBoard))){
 
         pieces.setNewMove(event.target.id)
         addPiece(event)
         // deletePiece()
 
         nextColor = pieces.getColor() == "W"?"B":"W"
-        console.log(nextColor)
+        if(currentBoard[event.target.id].substring(1,currentBoard[event.target.id].length) == "King"){
+            getKingPosition()
+        }
+        
+        isCheck(pieces.getColor())
         pieces = undefined
+
 
 
     }
@@ -117,7 +194,7 @@ for(let i = 0; i< grid.length;i++){
 
 
 
-
+getKingPosition()
 
 
 
