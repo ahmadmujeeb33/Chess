@@ -47,19 +47,7 @@ class Bishop extends Pieces{
         let row = currentRow
         let col = currentCol
 
-        console.log(row)
-        console.log(col)
-
-        console.log(newValRow)
-        console.log(newValCol)
-
-        console.log(rowStep)
-        console.log(colStep)
-
-        console.log(this.color)
-        console.log(currentBoard[newVal][0])
-
-        // currentBoard[row.toString() + col.toString()] != "" && 
+        
 
         while(row != newValRow && col != newValCol){
         
