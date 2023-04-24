@@ -75,8 +75,7 @@ let Move = (event)=>{
     if(event.target.name != undefined && nextColor == event.target.name[0]){
         console.log("!!!!!!!!!!!!!!!!!")
         pieces = createPiece(event.target.name.substring(1,event.target.name.length),event.target.id,event.target.name[0])
-        // pieces.setCurrentMove(event.target.id)
-        // pieces.setColor(event.target.name[0])
+        
 
     }
 

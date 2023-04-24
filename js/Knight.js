@@ -4,7 +4,6 @@ class Knight{
     currentMove
     newMove
     color
-    nextPlayerTurn
 
     constructor(currentMove,color){
         this.currentMove = currentMove

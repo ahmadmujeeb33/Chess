@@ -3,7 +3,6 @@ class Bishop{
     currentMove
     newMove
     color
-    nextPlayerTurn
 
     constructor(currentMove,color){
         this.currentMove = currentMove
@@ -47,18 +46,22 @@ class Bishop{
         let row = currentRow
         let col = currentCol
 
-        
 
         while(row != newValRow && col != newValCol){
         
             row+=rowStep
             col+=colStep
 
-            if(currentBoard[row.toString() + col.toString()][0] == this.color){
-                console.log("in here")
+            let currentPoint = row.toString() + col.toString()
+
+            if( currentBoard[currentPoint][0] == this.color){
                 return false;
             }
 
+            if(currentBoard[currentPoint][0]!=this.color && currentBoard[currentPoint]!="" && currentBoard[currentPoint] != currentBoard[newVal]){               
+                return false
+                
+            }
             
         }
     
