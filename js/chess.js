@@ -106,9 +106,22 @@ let isCheck = (color)=>{
                       [1,0],
                     [0,-1],
                     [0,1],
-                    [-1,0]
-                    ]
-    let piece = "Bishop"
+                    [-1,0],
+
+
+                    [1, 2],
+                    [2, 1],
+                    [2, -1],
+                    [-1, 2],
+
+                    [-2, 1],
+                    [1, 2],
+                    [2, 1],
+                    [1, 2]
+                ]
+    let pieces = new Set([color +"Bishop",color +"Queen"]);
+    
+   
 
     for(let i=0;i<movements.length;i++){
 
@@ -117,9 +130,12 @@ let isCheck = (color)=>{
     
         while(currentBoard[row.toString()+col.toString()]!=undefined){
        
-            if(currentBoard[row.toString()+col.toString()] == color + piece || currentBoard[row.toString()+col.toString()] == color+"Queen"){
-                alert(nextColor + " is Check")
-                break
+            if(pieces.has(currentBoard[row.toString()+col.toString()])){
+                
+                // currentBoard[row.toString()+col.toString()] == color + piece || currentBoard[row.toString()+col.toString()] == color+"Queen"){
+              
+                return true
+                
             }
 
             if(currentBoard[row.toString()+col.toString()] != ""){
@@ -133,16 +149,29 @@ let isCheck = (color)=>{
         }
 
         if(i==3){
-            piece = "Rook"
+            pieces = new Set([color +"Rook",color +"Queen"]);
+            
+            // [color +"Rook",color +"Queen"]
+        }
+
+        if(i == 7){
+            pieces = new Set([color +"Knight"]);
         }
 
     }
 
-    // movements = [ [1,0],
-    //             [0,-1],
-    //             [0,1],
-    //             [-1,0]
-    //             ]
+    // movements = [
+    //     [1, 2],
+    //     [2, 1],
+    //     [2, -1],
+    //     [-1, 2],
+
+    //     [-2, 1],
+    //     [1, 2],
+    //     [2, 1],
+    //     [1, 2]
+
+    // ];
 
     // for(let i=0;i<movements.length;i++){
 
@@ -153,7 +182,7 @@ let isCheck = (color)=>{
         
     //         let strRowCol = row.toString()+col.toString()
             
-    //         if(currentBoard[strRowCol] == color+ "Rook" || currentBoard[strRowCol] == color+ "Queen"){
+    //         if(currentBoard[strRowCol] == color+ "Knight"){
     //             console.log(strRowCol)
     //             alert(nextColor + " is Check")
     //             break
@@ -171,11 +200,11 @@ let isCheck = (color)=>{
 
     // }
 
-    console.log(color)
-    console.log(kingMove)
+    // console.log(color)
+    // console.log(kingMove)
    
 
-
+    return false
 
 
 }
@@ -203,7 +232,9 @@ let Move = (event)=>{
             getKingPosition()
         }
         
-        isCheck(pieces.getColor())
+        if(isCheck(pieces.getColor())){
+            alert(nextColor + " is Check")
+        }
         pieces = undefined
 
 
