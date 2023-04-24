@@ -44,7 +44,17 @@ let addPiece = (event)=>{
     
     let parent = child.parentNode
 
+
     parent.innerHTML = ""
+
+
+    let tempTag = document.createElement("div")
+    tempTag.style.height = "90%"
+    tempTag.style.width = "100%"
+    tempTag.setAttribute("id",pieces.getCurrentMove())
+
+    parent.append(tempTag)
+
 
     startingPosition[pieces.getCurrentMove()] = "";
 
@@ -59,8 +69,7 @@ let createPiece = (pieceType) => {
 
 let Move = (event)=>{
 
-    console.log(event.target.name)
-    console.log(nextColor)
+    console.log(event.target.id)
 
 
     if(event.target.name != undefined && nextColor == event.target.name[0]){
