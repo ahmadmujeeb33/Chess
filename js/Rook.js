@@ -63,16 +63,10 @@ class Rook{
 
         while(row != newValRow || col != newValCol){
         
-           
-
-            console.log(row)
-            console.log(col)
-
             let currentPoint = row.toString() + col.toString()
 
 
             if(currentBoard[currentPoint][0] == this.color){
-                console.log("in here")
                 return false;
             }
 

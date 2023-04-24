@@ -96,19 +96,13 @@ let getKingPosition = ()=>{
 
 let isCheck = (color)=>{
     let kingMove = color == "W" ? blackKingPosition : whiteKingPosition
-    // let diagnoalMovements = [
-    //                         [kingMove[0],3,kingMove[1],7]
-                        
-    //                     ]
+             
 
     let movements = [ [1,-1],
                       [-1,1],
                       [1,1],
                       [-1,-1]
                     ]
-
-   
-    // console.log(currentBoard[row.toString()+col.toString()])
 
     for(let i=0;i<movements.length;i++){
 
@@ -117,16 +111,15 @@ let isCheck = (color)=>{
     
         while(currentBoard[row.toString()+col.toString()]!=undefined){
        
-            let length = currentBoard[row.toString()+col.toString()].length
 
           
 
-            if(currentBoard[row.toString()+col.toString()].substring(1,length) == "Bishop" || currentBoard[row.toString()+col.toString()].substring(1,length) == "Queen"){
+            if(currentBoard[row.toString()+col.toString()] == color + "Bishop" || currentBoard[row.toString()+col.toString()] == color+"Queen"){
                 alert(nextColor + " is Check")
                 break
             }
 
-            if(currentBoard[row.toString()+col.toString()].substring(1,length) != ""){
+            if(currentBoard[row.toString()+col.toString()] != ""){
                 break
             }
 
@@ -138,6 +131,41 @@ let isCheck = (color)=>{
 
     }
 
+    movements = [ [1,0],
+                [0,-1],
+                [0,1],
+                [-1,0]
+                ]
+
+    for(let i=0;i<movements.length;i++){
+
+        let row = parseInt(kingMove[0]) + movements[i][0]
+        let col = parseInt(kingMove[1]) + movements[i][1]
+    
+        while(currentBoard[row.toString()+col.toString()]!=undefined){
+        
+            let strRowCol = row.toString()+col.toString()
+            
+            if(currentBoard[strRowCol] == color+ "Rook" || currentBoard[strRowCol] == color+ "Queen"){
+                console.log(strRowCol)
+                alert(nextColor + " is Check")
+                break
+            }
+
+            if(currentBoard[row.toString()+col.toString()] != ""){
+                break
+            }
+
+            
+    
+            row+=movements[i][0]
+            col+=movements[i][1]
+        }
+
+    }
+
+    console.log(color)
+    console.log(kingMove)
    
 
 
