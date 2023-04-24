@@ -35,7 +35,6 @@ class Rook extends Pieces{
 
     isValid(newVal,currentBoard){
 
-        console.log(newVal)
 
         let currentRow = parseInt(this.currentMove[0])
         let currentCol = parseInt(this.currentMove[1])
@@ -46,9 +45,7 @@ class Rook extends Pieces{
         let colStep = 0
         let rowStep = 0
 
-        console.log(newValRow)
-        console.log(newValCol)
-
+        
 
         if(newValRow == currentRow){
             colStep = (currentCol < newValCol) ? 1 : -1;
@@ -59,10 +56,7 @@ class Rook extends Pieces{
 
         }
 
-        console.log(currentRow)
-        console.log(currentCol)
-
-
+      
         let row = currentRow + rowStep
         let col = currentCol + colStep
 

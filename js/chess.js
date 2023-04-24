@@ -62,7 +62,7 @@ let addPiece = (event)=>{
 }
 
 let createPiece = (pieceType) => {
-    let pieces = {"Pawn":new Pawn(),"Bishop":new Bishop(),"Rook":new Rook(),"Knight":new Knight()}
+    let pieces = {"Pawn":new Pawn(),"Bishop":new Bishop(),"Rook":new Rook(),"Knight":new Knight(),"Queen":new Queen()}
     return pieces[pieceType]
 }
 
