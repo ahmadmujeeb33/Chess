@@ -30,13 +30,13 @@ class Pawn{
 
     isAttack(newVal,currentBoard){
 
+        console.log(this.color)
+
         let otherVal = this.color == "B" ? -1:1
 
         let movements = [
             [otherVal, otherVal],
-            [-otherVal, -otherVal],
             [otherVal, -otherVal],
-            [-otherVal, otherVal]
         ];
 
         console.log(currentBoard[newVal][0])

@@ -96,6 +96,7 @@ let getKingPosition = ()=>{
 
 let isCheck = (color)=>{
     let kingMove = color == "W" ? blackKingPosition : whiteKingPosition
+   
              
 
     let movements = [ [1,-1],
@@ -109,15 +110,9 @@ let isCheck = (color)=>{
                     [-1,0],
 
 
-                    [1, 2],
-                    [2, 1],
-                    [2, -1],
-                    [-1, 2],
+                  
+                    
 
-                    [-2, 1],
-                    [1, 2],
-                    [2, 1],
-                    [1, 2]
                 ]
     let pieces = new Set([color +"Bishop",color +"Queen"]);
     
@@ -131,9 +126,7 @@ let isCheck = (color)=>{
         while(currentBoard[row.toString()+col.toString()]!=undefined){
        
             if(pieces.has(currentBoard[row.toString()+col.toString()])){
-                
-                // currentBoard[row.toString()+col.toString()] == color + piece || currentBoard[row.toString()+col.toString()] == color+"Queen"){
-              
+               
                 return true
                 
             }
@@ -151,58 +144,45 @@ let isCheck = (color)=>{
         if(i==3){
             pieces = new Set([color +"Rook",color +"Queen"]);
             
-            // [color +"Rook",color +"Queen"]
         }
 
-        if(i == 7){
-            pieces = new Set([color +"Knight"]);
-        }
 
     }
 
-    // movements = [
-    //     [1, 2],
-    //     [2, 1],
-    //     [2, -1],
-    //     [-1, 2],
+    let pawnMove = color == "B" ? [[-1,1],[-1,-1]]:  [[1,1],[1,-1]]
 
-    //     [-2, 1],
-    //     [1, 2],
-    //     [2, 1],
-    //     [1, 2]
+    pieces = new Set([color +"Knight"]);
 
-    // ];
+    movements = [  [1, 2],
+                [2, 1],
+                [2, -1],
+                [-1, 2],
 
-    // for(let i=0;i<movements.length;i++){
-
-    //     let row = parseInt(kingMove[0]) + movements[i][0]
-    //     let col = parseInt(kingMove[1]) + movements[i][1]
-    
-    //     while(currentBoard[row.toString()+col.toString()]!=undefined){
-        
-    //         let strRowCol = row.toString()+col.toString()
+                [-2, 1],
+                [1, 2],
+                [2, 1],
+                [1, 2],
+                pawnMove[0],
+                pawnMove[1]
             
-    //         if(currentBoard[strRowCol] == color+ "Knight"){
-    //             console.log(strRowCol)
-    //             alert(nextColor + " is Check")
-    //             break
-    //         }
+            ]
+    for(let i=0;i<movements.length;i++){
+        let row = parseInt(kingMove[0]) + movements[i][0]
+        let col = parseInt(kingMove[1]) + movements[i][1]
 
-    //         if(currentBoard[row.toString()+col.toString()] != ""){
-    //             break
-    //         }
-
+        if(pieces.has(currentBoard[row.toString()+col.toString()])){          
+            return true
             
-    
-    //         row+=movements[i][0]
-    //         col+=movements[i][1]
-    //     }
+        }
 
-    // }
+        if(i ==7){
+            pieces = new Set([color +"Pawn"])
+        }
+    }
 
-    // console.log(color)
-    // console.log(kingMove)
-   
+
+
+
 
     return false
 
