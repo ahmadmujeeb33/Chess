@@ -141,7 +141,7 @@ class King{
 
         let check = new Check()
         
-        if(currentBoard[newVal][0] != this.color && currentBoard[newVal].substring(currentBoard[newVal].length-4)!="King" && Math.abs(currentMoveRow - newValRow) < 2 && Math.abs(currentMoveCol - newValCol) < 2 && !check.canBeCheck(newVal,this.color)){
+        if(currentBoard[newVal][0] != this.color && currentBoard[newVal].substring(currentBoard[newVal].length-4)!="King" && Math.abs(currentMoveRow - newValRow) < 2 && Math.abs(currentMoveCol - newValCol) < 2 && !check.canBeCheck(newVal,this.color,currentBoard)){
           
             return true
         }

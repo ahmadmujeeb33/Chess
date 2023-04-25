@@ -3,7 +3,14 @@ class Check{
     blackKingPosition
     whiteKingPosition
 
+    setBlackKingPosition(cordinate){
+        this.blackKingPosition = cordinate
+    }
 
+    setWhitePosition(cordinate){
+        this.whiteKingPosition = cordinate
+
+    }
 
     getKingPosition(currentBoard,nextColor){
 
@@ -26,7 +33,7 @@ class Check{
         console.log(filteredObj)
     }
 
-    checkForCheck(val,color){
+    showCheck(val,color,currentBoard){
 
         console.log(val)
 
@@ -119,13 +126,32 @@ class Check{
         return false
     }
 
+    movePieceCausesCheck(newVal,color,currentBoard){
 
-    canBeCheck(newVal,color){
+        let prevVal =  currentBoard[newVal] 
+        currentBoard[newVal] = ""
+        let kingMove = color == "B" ? this.blackKingPosition : this.whiteKingPosition
+        let attackingColor = color == "B"?"W":"B"
 
 
+        if(this.showCheck(kingMove,attackingColor,currentBoard)){
+            currentBoard[newVal] = prevVal
+            console.log("XXXXXXXXXXXXXXXXXXXXXXXXX")
+            alert("Can't Make move will lead to check")
+            return true
+        }
+       
+        currentBoard[newVal] = prevVal
+        return false
+
+    }
+
+    canBeCheck(newVal,color,currentBoard){
+
+        
         let attackingColor = color == "B"?"W":"B"
    
-        if(this.checkForCheck(newVal,attackingColor)){
+        if(this.showCheck(newVal,attackingColor,currentBoard)){
             alert("Can't Make move will lead to check")
             return true
         }
@@ -134,13 +160,13 @@ class Check{
     }
 
 
-    isCheck = (color)=>{
+    isCheck = (color,currentBoard)=>{
         
         let kingMove = color == "W" ? this.blackKingPosition : this.whiteKingPosition
 
         console.log(kingMove)
             
-        if(this.checkForCheck(kingMove,color)){
+        if(this.showCheck(kingMove,color,currentBoard)){
            
             return true
         }

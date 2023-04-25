@@ -77,114 +77,17 @@ let createPiece = (pieceType,currentMove,color) => {
 
 
 
-// let isCheck = (color)=>{
-//     let kingMove = color == "W" ? blackKingPosition : whiteKingPosition
-   
-             
-
-//     let movements = [ [1,-1],
-//                       [-1,1],
-//                       [1,1],
-//                       [-1,-1],
-
-//                       [1,0],
-//                     [0,-1],
-//                     [0,1],
-//                     [-1,0],
-
-
-                  
-                    
-
-//                 ]
-//     let pieces = new Set([color +"Bishop",color +"Queen"]);
-    
-   
-
-//     for(let i=0;i<movements.length;i++){
-
-//         let row = parseInt(kingMove[0]) + movements[i][0]
-//         let col = parseInt(kingMove[1]) + movements[i][1]
-    
-//         while(currentBoard[row.toString()+col.toString()]!=undefined){
-       
-//             if(pieces.has(currentBoard[row.toString()+col.toString()])){
-               
-//                 return true
-                
-//             }
-
-//             if(currentBoard[row.toString()+col.toString()] != ""){
-//                 break
-//             }
-
-            
-    
-//             row+=movements[i][0]
-//             col+=movements[i][1]
-//         }
-
-//         if(i==3){
-//             pieces = new Set([color +"Rook",color +"Queen"]);
-            
-//         }
-
-
-//     }
-
-//     let pawnMove = color == "B" ? [[-1,1],[-1,-1]]:  [[1,1],[1,-1]]
-
-//     pieces = new Set([color +"Knight"]);
-
-//     movements = [  [1, 2],
-//                 [2, 1],
-//                 [2, -1],
-//                 [-1, 2],
-
-//                 [-2, 1],
-//                 [1, 2],
-//                 [2, 1],
-//                 [1, 2],
-//                 pawnMove[0],
-//                 pawnMove[1]
-            
-//             ]
-//     for(let i=0;i<movements.length;i++){
-//         let row = parseInt(kingMove[0]) + movements[i][0]
-//         let col = parseInt(kingMove[1]) + movements[i][1]
-
-//         if(pieces.has(currentBoard[row.toString()+col.toString()])){          
-//             return true
-            
-//         }
-
-//         if(i ==7){
-//             pieces = new Set([color +"Pawn"])
-//         }
-//     }
-
-
-
-
-
-//     return false
-
-
-// }
-
 
 let Move = (event)=>{
 
-
-
-    if(event.target.name != undefined && nextColor == event.target.name[0]){
+    if(event.target.name != undefined && nextColor == event.target.name[0] &&  !check.movePieceCausesCheck(event.target.id,event.target.name[0],currentBoard)){
         pieces = createPiece(event.target.name.substring(1,event.target.name.length),event.target.id,event.target.name[0])
-        
+     
 
     }
 
 
-    else if(pieces!=undefined && (pieces.isValid(event.target.id,currentBoard))){
+    else if(pieces!=undefined && pieces.isValid(event.target.id,currentBoard) ){
 
         pieces.setNewMove(event.target.id)
         addPiece(event)
@@ -195,7 +98,7 @@ let Move = (event)=>{
             check.getKingPosition(currentBoard,nextColor)
         }
         
-        if(check.isCheck(pieces.getColor())){
+        if(check.isCheck(pieces.getColor(),currentBoard)){
             alert(nextColor + " is Check")
         }
         pieces = undefined
@@ -223,8 +126,8 @@ for(let i = 0; i< grid.length;i++){
 
 
 
-check.getKingPosition(currentBoard,"B")
-check.getKingPosition(currentBoard,"W")
+check.setBlackKingPosition("04")
+check.setWhitePosition("64")
 
 
 
