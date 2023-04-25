@@ -6,6 +6,8 @@ let nextColor = "W"
 let whiteKingPosition = ""
 let blackKingPosition = ""
 
+let check = new Check()
+
 let deletePiece = ()=>{
 
     let child = document.getElementById(pieces.getCurrentMove());
@@ -73,121 +75,102 @@ let createPiece = (pieceType,currentMove,color) => {
 }
 
 
-let getKingPosition = ()=>{
-
-    const filteredObj = Object.fromEntries(
-        Object.entries(currentBoard).filter(([key, value]) => value.substring(1,value.length) == "King" && value[0] != nextColor)
-    );
-
-    const val = Object.values(filteredObj)[0];
-    const key = Object.keys(filteredObj)[0]
-
-    if(val[0] == "B"){
-        blackKingPosition = key
-    }
-    
-    else{
-        whiteKingPosition = key
-    }
 
 
-    console.log(filteredObj)
-}
-
-let isCheck = (color)=>{
-    let kingMove = color == "W" ? blackKingPosition : whiteKingPosition
+// let isCheck = (color)=>{
+//     let kingMove = color == "W" ? blackKingPosition : whiteKingPosition
    
              
 
-    let movements = [ [1,-1],
-                      [-1,1],
-                      [1,1],
-                      [-1,-1],
+//     let movements = [ [1,-1],
+//                       [-1,1],
+//                       [1,1],
+//                       [-1,-1],
 
-                      [1,0],
-                    [0,-1],
-                    [0,1],
-                    [-1,0],
+//                       [1,0],
+//                     [0,-1],
+//                     [0,1],
+//                     [-1,0],
 
 
                   
                     
 
-                ]
-    let pieces = new Set([color +"Bishop",color +"Queen"]);
+//                 ]
+//     let pieces = new Set([color +"Bishop",color +"Queen"]);
     
    
 
-    for(let i=0;i<movements.length;i++){
+//     for(let i=0;i<movements.length;i++){
 
-        let row = parseInt(kingMove[0]) + movements[i][0]
-        let col = parseInt(kingMove[1]) + movements[i][1]
+//         let row = parseInt(kingMove[0]) + movements[i][0]
+//         let col = parseInt(kingMove[1]) + movements[i][1]
     
-        while(currentBoard[row.toString()+col.toString()]!=undefined){
+//         while(currentBoard[row.toString()+col.toString()]!=undefined){
        
-            if(pieces.has(currentBoard[row.toString()+col.toString()])){
+//             if(pieces.has(currentBoard[row.toString()+col.toString()])){
                
-                return true
+//                 return true
                 
-            }
+//             }
 
-            if(currentBoard[row.toString()+col.toString()] != ""){
-                break
-            }
+//             if(currentBoard[row.toString()+col.toString()] != ""){
+//                 break
+//             }
 
             
     
-            row+=movements[i][0]
-            col+=movements[i][1]
-        }
+//             row+=movements[i][0]
+//             col+=movements[i][1]
+//         }
 
-        if(i==3){
-            pieces = new Set([color +"Rook",color +"Queen"]);
+//         if(i==3){
+//             pieces = new Set([color +"Rook",color +"Queen"]);
             
-        }
+//         }
 
 
-    }
+//     }
 
-    let pawnMove = color == "B" ? [[-1,1],[-1,-1]]:  [[1,1],[1,-1]]
+//     let pawnMove = color == "B" ? [[-1,1],[-1,-1]]:  [[1,1],[1,-1]]
 
-    pieces = new Set([color +"Knight"]);
+//     pieces = new Set([color +"Knight"]);
 
-    movements = [  [1, 2],
-                [2, 1],
-                [2, -1],
-                [-1, 2],
+//     movements = [  [1, 2],
+//                 [2, 1],
+//                 [2, -1],
+//                 [-1, 2],
 
-                [-2, 1],
-                [1, 2],
-                [2, 1],
-                [1, 2],
-                pawnMove[0],
-                pawnMove[1]
+//                 [-2, 1],
+//                 [1, 2],
+//                 [2, 1],
+//                 [1, 2],
+//                 pawnMove[0],
+//                 pawnMove[1]
             
-            ]
-    for(let i=0;i<movements.length;i++){
-        let row = parseInt(kingMove[0]) + movements[i][0]
-        let col = parseInt(kingMove[1]) + movements[i][1]
+//             ]
+//     for(let i=0;i<movements.length;i++){
+//         let row = parseInt(kingMove[0]) + movements[i][0]
+//         let col = parseInt(kingMove[1]) + movements[i][1]
 
-        if(pieces.has(currentBoard[row.toString()+col.toString()])){          
-            return true
+//         if(pieces.has(currentBoard[row.toString()+col.toString()])){          
+//             return true
             
-        }
+//         }
 
-        if(i ==7){
-            pieces = new Set([color +"Pawn"])
-        }
-    }
-
-
+//         if(i ==7){
+//             pieces = new Set([color +"Pawn"])
+//         }
+//     }
 
 
 
-    return false
 
 
-}
+//     return false
+
+
+// }
 
 
 let Move = (event)=>{
@@ -209,10 +192,10 @@ let Move = (event)=>{
 
         nextColor = pieces.getColor() == "W"?"B":"W"
         if(currentBoard[event.target.id].substring(1,currentBoard[event.target.id].length) == "King"){
-            getKingPosition()
+            check.getKingPosition(currentBoard,nextColor)
         }
         
-        if(isCheck(pieces.getColor())){
+        if(check.isCheck(pieces.getColor())){
             alert(nextColor + " is Check")
         }
         pieces = undefined
@@ -240,7 +223,9 @@ for(let i = 0; i< grid.length;i++){
 
 
 
-getKingPosition()
+check.getKingPosition(currentBoard,"B")
+check.getKingPosition(currentBoard,"W")
+
 
 
 
