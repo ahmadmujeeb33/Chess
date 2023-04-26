@@ -117,7 +117,7 @@ let Move = (event)=>{
         pieces = undefined
     }
 
-    else if(pieces!=undefined && pieces.isValid(event.target.id,currentBoard) &&  !check.movePieceCausesCheck(pieces.getCurrentMove(),pieces.getColor(),currentBoard)){
+    else if(pieces!=undefined && pieces.isValid(event.target.id,currentBoard) && check.getInCheck() == false &&  !check.movePieceCausesCheck(pieces.getCurrentMove(),pieces.getColor(),currentBoard)){
 
         console.log("1111111111111111111111111111")
 
