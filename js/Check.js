@@ -59,6 +59,8 @@ class Check{
         let pieces = new Set([color +"Bishop",color +"Queen"]);
 
 
+     
+
 
         for(let i=0;i<movements.length;i++){
 
@@ -66,6 +68,7 @@ class Check{
             let col = parseInt(kingMove[1]) + movements[i][1]
 
             while(currentBoard[row.toString()+col.toString()]!=undefined){
+
 
                 if(pieces.has(currentBoard[row.toString()+col.toString()])){
                     return true
@@ -132,7 +135,6 @@ class Check{
 
     canSaveCheck(newVal,previosPiece,color,currentBoard){
 
-        console.log("in save check")
 
         currentBoard[newVal] = previosPiece
         let kingMove = color == "B" ? this.blackKingPosition : this.whiteKingPosition
@@ -143,18 +145,17 @@ class Check{
         if(this.showCheck(kingMove,attackingColor,currentBoard)){
             currentBoard[newVal] = ""
             alert("You are still in check")
-            return true
+            return false
         }
        
         currentBoard[newVal] = ""
-        return false
+        return true
 
 
     }
 
     movePieceCausesCheck(newVal,color,currentBoard){
 
-        console.log("in here pieces cause")
 
 
         let prevVal =  currentBoard[newVal] 
@@ -189,12 +190,14 @@ class Check{
 
 
     isCheck = (color,currentBoard)=>{
+
+
         
         let kingMove = color == "W" ? this.blackKingPosition : this.whiteKingPosition
 
+    
             
         if(this.showCheck(kingMove,color,currentBoard)){
-           
             return true
         }
 

@@ -7,7 +7,7 @@ let whiteKingPosition = ""
 let blackKingPosition = ""
 let previosPiece = ""
 
-let check = new Check("04","64",false)
+let check = new Check("04","74",false)
 
 let deletePiece = ()=>{
 
@@ -89,9 +89,8 @@ let Move = (event)=>{
 
    
 
-    else if(pieces!=undefined && pieces.isValid(event.target.id,currentBoard) && ((check.getInCheck() == false &&  !check.movePieceCausesCheck(pieces.getCurrentMove(),pieces.getColor(),currentBoard)) ||(check.getInCheck() == true && !check.canSaveCheck(event.target.id,previosPiece,pieces.getColor(),currentBoard)))){
+    else if(pieces!=undefined && pieces.isValid(event.target.id,currentBoard) && ((!check.getInCheck() &&  !check.movePieceCausesCheck(pieces.getCurrentMove(),pieces.getColor(),currentBoard)) ||(check.getInCheck() && check.canSaveCheck(event.target.id,previosPiece,pieces.getColor(),currentBoard)))){
 
-        console.log("1111111111111111111111111111")
 
         pieces.setNewMove(event.target.id)
         addPiece(event)
