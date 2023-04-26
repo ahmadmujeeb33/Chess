@@ -6,24 +6,13 @@ let nextColor = "W"
 let whiteKingPosition = ""
 let blackKingPosition = ""
 let previosPiece = ""
+let previousHighlighted = []
 
 let check = new Check("04","74",false)
 
-let deletePiece = ()=>{
 
-    let child = document.getElementById(pieces.getCurrentMove());
-    console.log(child)
-    console.log(child.parentNode)
 
-    let parent = child.parentNode
-
-    parent.innerHTML = ""
-  
-    currentBoard[pieces.getCurrentMove] = "";
-
-}
-
-let addPiece = (event)=>{
+let movePiece = (event)=>{
 
 
     let prevId = pieces.getNewMove()
@@ -76,14 +65,41 @@ let createPiece = (pieceType,currentMove,color) => {
 }
 
 
+let clearColor = ()=>{
+
+    console.log(previousHighlighted)
+
+    for(cell in previousHighlighted){
+
+        console.log(cell)
+        let position = document.getElementById(previousHighlighted[cell])
+
+        console.log(position)
+
+        let rowInt = parseInt(previousHighlighted[cell][0])
+        let colInt = parseInt(previousHighlighted[cell][1])
+
+        console.log(rowInt+colInt%2)
+
+        // position.parentNode.style.backgroundColor = (rowInt+colInt)%2==0 ? 'gray' : 'white';  
+
+        position.parentNode.style.opacity  = "1"
+
+    }
+
+
+}
+
 
 
 
 let Move = (event)=>{
 
     if(event.target.name != undefined && nextColor == event.target.name[0]){
+        clearColor()
         pieces = createPiece(event.target.name.substring(1,event.target.name.length),event.target.id,event.target.name[0])
         previosPiece = event.target.name
+        previousHighlighted = pieces.getAllPossibleMoves(event,currentBoard)
      
     }
 
@@ -91,10 +107,9 @@ let Move = (event)=>{
 
     else if(pieces!=undefined && pieces.isValid(event.target.id,currentBoard) && ((!check.getInCheck() &&  !check.movePieceCausesCheck(pieces.getCurrentMove(),pieces.getColor(),currentBoard)) ||(check.getInCheck() && check.canSaveCheck(event.target.id,previosPiece,pieces.getColor(),currentBoard)))){
 
-
+        clearColor()
         pieces.setNewMove(event.target.id)
-        addPiece(event)
-        // deletePiece()
+        movePiece(event)
 
         nextColor = pieces.getColor() == "W"?"B":"W"
         if(currentBoard[event.target.id].substring(1,currentBoard[event.target.id].length) == "King"){
