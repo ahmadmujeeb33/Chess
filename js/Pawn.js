@@ -36,7 +36,7 @@ class Pawn{
             [otherVal, -otherVal],
         ];
 
-        if(currentBoard[newVal][0] != this.color && currentBoard[newVal].substring(currentBoard[newVal].length-4)!="King" ){
+        if(currentBoard[newVal][0] != this.color && currentBoard[newVal] != "" && currentBoard[newVal].substring(currentBoard[newVal].length-4)!="King" ){
             for (let i = 0; i < movements.length; i++) {
                 let row = parseInt(newVal[0]) + movements[i][0];
                 let col = parseInt(newVal[1]) + movements[i][1];
