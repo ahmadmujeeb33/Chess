@@ -13,7 +13,6 @@ class Knight{
    
 
     getCurrentMove(){
-        console.log("thissssssssssssss")
         return this.currentMove
     }
 
@@ -22,7 +21,6 @@ class Knight{
     }
 
     setNewMove(position){
-        console.log("in this",position)
         this.newMove = position
     }
 

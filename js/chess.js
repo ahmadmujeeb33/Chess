@@ -5,8 +5,9 @@ let pieces
 let nextColor = "W"
 let whiteKingPosition = ""
 let blackKingPosition = ""
+let previosPiece = ""
 
-let check = new Check()
+let check = new Check("04","64",false)
 
 let deletePiece = ()=>{
 
@@ -80,14 +81,45 @@ let createPiece = (pieceType,currentMove,color) => {
 
 let Move = (event)=>{
 
-    if(event.target.name != undefined && nextColor == event.target.name[0] &&  !check.movePieceCausesCheck(event.target.id,event.target.name[0],currentBoard)){
-        pieces = createPiece(event.target.name.substring(1,event.target.name.length),event.target.id,event.target.name[0])
-     
+    // if(event.target.name != undefined && nextColor == event.target.name[0] && check.getInCheck() == true){
+    //     pieces = createPiece(event.target.name.substring(1,event.target.name.length),event.target.id,event.target.name[0])
 
+    // }
+
+   console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
+    if(event.target.name != undefined && nextColor == event.target.name[0]){
+        pieces = createPiece(event.target.name.substring(1,event.target.name.length),event.target.id,event.target.name[0])
+        previosPiece = event.target.name
+     
     }
 
+    else if(pieces!=undefined && pieces.isValid(event.target.id,currentBoard) && check.getInCheck() == true && !check.canSaveCheck(event.target.id,previosPiece,pieces.getColor(),currentBoard)){
+        
+        console.log("------------------------")
+        
+        pieces.setNewMove(event.target.id)
+        addPiece(event)
+        // deletePiece()
 
-    else if(pieces!=undefined && pieces.isValid(event.target.id,currentBoard) ){
+        nextColor = pieces.getColor() == "W"?"B":"W"
+        if(currentBoard[event.target.id].substring(1,currentBoard[event.target.id].length) == "King"){
+            check.getKingPosition(currentBoard,nextColor)
+        }
+        
+        if(check.isCheck(pieces.getColor(),currentBoard)){
+            check.setInCheck(true)
+            alert(nextColor + " is Check")
+        }
+        else{
+            check.setInCheck(false)
+        }
+        pieces = undefined
+    }
+
+    else if(pieces!=undefined && pieces.isValid(event.target.id,currentBoard) &&  !check.movePieceCausesCheck(pieces.getCurrentMove(),pieces.getColor(),currentBoard)){
+
+        console.log("1111111111111111111111111111")
 
         pieces.setNewMove(event.target.id)
         addPiece(event)
@@ -99,7 +131,11 @@ let Move = (event)=>{
         }
         
         if(check.isCheck(pieces.getColor(),currentBoard)){
+            check.setInCheck(true)
             alert(nextColor + " is Check")
+        }
+        else{
+            check.setInCheck(false)
         }
         pieces = undefined
 
@@ -125,9 +161,6 @@ for(let i = 0; i< grid.length;i++){
 };
 
 
-
-check.setBlackKingPosition("04")
-check.setWhitePosition("64")
 
 
 

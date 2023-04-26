@@ -10,7 +10,6 @@ class Pawn{
     }
 
     getCurrentMove(){
-        console.log("thissssssssssssss")
         return this.currentMove
     }
 
@@ -19,7 +18,6 @@ class Pawn{
     }
 
     setNewMove(position){
-        console.log("in this",position)
         this.newMove = position
     }
 
@@ -30,7 +28,6 @@ class Pawn{
 
     isAttack(newVal,currentBoard){
 
-        console.log(this.color)
 
         let otherVal = this.color == "B" ? -1:1
 
@@ -39,7 +36,6 @@ class Pawn{
             [otherVal, -otherVal],
         ];
 
-        console.log(currentBoard[newVal][0])
         if(currentBoard[newVal][0] != this.color && currentBoard[newVal].substring(currentBoard[newVal].length-4)!="King" ){
             for (let i = 0; i < movements.length; i++) {
                 let row = parseInt(newVal[0]) + movements[i][0];
@@ -64,7 +60,6 @@ class Pawn{
         
         // if(currentBoard[newVal]==""){
             
-        console.log("thisssssssssssssssssss")
 
         const forwardMove =
             parseInt(this.currentMove[0]) === parseInt(newVal[0]) + otherVal &&

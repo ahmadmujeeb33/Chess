@@ -11,7 +11,6 @@ class King{
 
 
     getCurrentMove(){
-        console.log("thissssssssssssss")
         return this.currentMove
     }
 
@@ -20,7 +19,6 @@ class King{
     }
 
     setNewMove(position){
-        console.log("in this",position)
         this.newMove = position
     }
 

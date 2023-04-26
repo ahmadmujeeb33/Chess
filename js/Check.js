@@ -2,15 +2,23 @@ class Check{
 
     blackKingPosition
     whiteKingPosition
+    inCheck
 
-    setBlackKingPosition(cordinate){
-        this.blackKingPosition = cordinate
+    constructor(blackKingPosition,whiteKingPosition,inCheck){
+        this.blackKingPosition = blackKingPosition
+        this.whiteKingPosition = whiteKingPosition
+        this.inCheck = inCheck
+
     }
 
-    setWhitePosition(cordinate){
-        this.whiteKingPosition = cordinate
-
+    setInCheck(inCheck){
+        this.inCheck = inCheck
     }
+
+    getInCheck(){
+        return this.inCheck
+    }
+
 
     getKingPosition(currentBoard,nextColor){
 
@@ -30,12 +38,10 @@ class Check{
         }
     
     
-        console.log(filteredObj)
     }
 
     showCheck(val,color,currentBoard){
 
-        console.log(val)
 
         let kingMove = val
        
@@ -56,7 +62,6 @@ class Check{
 
         for(let i=0;i<movements.length;i++){
 
-            console.log(kingMove)
             let row = parseInt(kingMove[0]) + movements[i][0]
             let col = parseInt(kingMove[1]) + movements[i][1]
 
@@ -106,8 +111,7 @@ class Check{
             let row = parseInt(kingMove[0]) + movements[i][0]
             let col = parseInt(kingMove[1]) + movements[i][1]
 
-            console.log("row",row)
-            console.log("col",col)
+           
 
             if(pieces.has(currentBoard[row.toString()+col.toString()])){      
                 return true
@@ -126,7 +130,32 @@ class Check{
         return false
     }
 
+    canSaveCheck(newVal,previosPiece,color,currentBoard){
+
+        console.log("in save check")
+
+        currentBoard[newVal] = previosPiece
+        let kingMove = color == "B" ? this.blackKingPosition : this.whiteKingPosition
+        let attackingColor = color == "B"?"W":"B"
+
+
+
+        if(this.showCheck(kingMove,attackingColor,currentBoard)){
+            currentBoard[newVal] = ""
+            alert("You are still in check")
+            return true
+        }
+       
+        currentBoard[newVal] = ""
+        return false
+
+
+    }
+
     movePieceCausesCheck(newVal,color,currentBoard){
+
+        console.log("in here pieces cause")
+
 
         let prevVal =  currentBoard[newVal] 
         currentBoard[newVal] = ""
@@ -136,7 +165,6 @@ class Check{
 
         if(this.showCheck(kingMove,attackingColor,currentBoard)){
             currentBoard[newVal] = prevVal
-            console.log("XXXXXXXXXXXXXXXXXXXXXXXXX")
             alert("Can't Make move will lead to check")
             return true
         }
@@ -164,7 +192,6 @@ class Check{
         
         let kingMove = color == "W" ? this.blackKingPosition : this.whiteKingPosition
 
-        console.log(kingMove)
             
         if(this.showCheck(kingMove,color,currentBoard)){
            

@@ -11,7 +11,6 @@ class Bishop{
 
 
     getCurrentMove(){
-        console.log("thissssssssssssss")
         return this.currentMove
     }
 
@@ -20,7 +19,6 @@ class Bishop{
     }
 
     setNewMove(position){
-        console.log("in this",position)
         this.newMove = position
     }
 
@@ -32,7 +30,6 @@ class Bishop{
 
     isValid(newVal,currentBoard){
 
-        console.log("in this")
 
         let currentRow = parseInt(this.currentMove[0])
         let currentCol = parseInt(this.currentMove[1])

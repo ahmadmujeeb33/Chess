@@ -12,7 +12,6 @@ class Rook{
 
 
     getCurrentMove(){
-        console.log("thissssssssssssss")
         return this.currentMove
     }
 
@@ -21,7 +20,6 @@ class Rook{
     }
 
     setNewMove(position){
-        console.log("in this",position)
         this.newMove = position
     }
 
