@@ -28,6 +28,46 @@ class Bishop{
     }
 
 
+    getAllPossibleMoves(event,currentBoard){
+
+        let movements = [[1,1],[1,-1],[-1,1],[-1,-1]]
+
+        let allMoves = []
+
+       
+
+        for(let i=0;i<movements.length;i++){
+
+            let row = parseInt(event.target.id[0])
+            let col = parseInt(event.target.id[1])
+
+            while((currentBoard[(row+movements[i][0]).toString() + (col+movements[i][1]).toString()]!=undefined)){
+        
+                row+=movements[i][0]
+                col+=movements[i][1]
+    
+                let currentPoint = row.toString() + col.toString()
+    
+                if(currentBoard[currentPoint][0] != this.color && currentBoard[currentPoint].substring(currentBoard[currentPoint].length-4)!="King"){
+                    allMoves.push(currentPoint)
+
+                    let cell = document.getElementById(currentPoint)
+                    cell.parentNode.style.opacity  = "0.3"
+
+                }
+
+                else{
+                    break
+                }
+                
+            }
+
+        }
+        console.log(allMoves)
+            return allMoves
+    }
+
+
     isValid(newVal,currentBoard){
 
 

@@ -25,20 +25,7 @@ class Pawn{
         return this.color
     }
 
-    clearColor(){
-
-      
-
-        for(let cell=0;cell<this.previousHighlighted.length;cell++){
-
-            let position = document.getElementById(this.previousHighlighted[cell])
-
-            position.parentNode.style.backgroundColor = (parseInt(cell[i])+parseInt(cell[j]))%2==0 ? 'gray' : 'white';  
-
-        }
-
-
-    }
+  
 
     getAllPossibleMoves(event,currentBoard){
 
@@ -59,8 +46,6 @@ class Pawn{
             let newRow = parseInt(row)+forwardMove[i]
             let newCol = parseInt(col)
 
-            console.log(newRow)
-            console.log(newCol)
 
             if(currentBoard[newRow.toString() + col.toString()] == ""){
                 
@@ -100,7 +85,7 @@ class Pawn{
         }
             
             return allMoves
-        }
+    }
 
       
 
