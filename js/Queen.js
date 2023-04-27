@@ -30,6 +30,30 @@ class Queen {
         return this.color
     }
 
+    getAllPossibleMoves(event,currentBoard){
+
+        let rook = new Rook(this.currentMove,this.color)
+        let allMoves = []
+        let rookMoves = rook.getAllPossibleMoves(event,currentBoard)
+
+        console.log(rookMoves)
+
+        allMoves.push(...rookMoves)
+       
+    
+        let bishop = new Bishop(this.currentMove,this.color)
+        let bishopMoves = bishop.getAllPossibleMoves(event,currentBoard)
+
+
+
+        allMoves.push(...bishopMoves)
+
+        
+        return allMoves
+    }
+
+    
+
 
     isValid(newVal,currentBoard){
 

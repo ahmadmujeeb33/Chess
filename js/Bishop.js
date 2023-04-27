@@ -34,8 +34,6 @@ class Bishop{
 
         let allMoves = []
 
-       
-
         for(let i=0;i<movements.length;i++){
 
             let row = parseInt(event.target.id[0])
