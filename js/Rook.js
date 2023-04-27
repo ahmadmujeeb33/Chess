@@ -47,8 +47,14 @@ class Rook{
                 col+=movements[i][1]
     
                 let currentPoint = row.toString() + col.toString()
+                if(currentBoard[currentPoint][0] != this.color && currentBoard[currentPoint] != ""){
+                    allMoves.push(currentPoint)
+                    let cell = document.getElementById(currentPoint)
+                    cell.parentNode.style.opacity  = "0.3"
+                    break
+                }
     
-                if(currentBoard[currentPoint][0] != this.color && currentBoard[currentPoint].substring(currentBoard[currentPoint].length-4)!="King"){
+                else if(currentBoard[currentPoint][0] != this.color && currentBoard[currentPoint].substring(currentBoard[currentPoint].length-4)!="King"){
                     allMoves.push(currentPoint)
 
                     let cell = document.getElementById(currentPoint)
