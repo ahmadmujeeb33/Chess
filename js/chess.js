@@ -5,7 +5,7 @@ let pieces
 let nextColor = "W"
 let whiteKingPosition = ""
 let blackKingPosition = ""
-let previosPiece = ""
+let previosPosition = ""
 let previousHighlighted = []
 
 let check = new Check("04","74",false)
@@ -81,40 +81,17 @@ let clearColor = ()=>{
 
 
 checkMate = ()=>{ 
-    console.log(currentBoard)
-    console.log(nextColor)
     for(let key in currentBoard){
-        console.log(currentBoard[key])
         if(currentBoard[key][0] == nextColor){
-            console.log(key)
             let pieces = createPiece(currentBoard[key].substring(1,currentBoard[key].length),key,nextColor)
-
             let possibleMoves = pieces.getAllPossibleMoves(key,currentBoard,false)
-            // console.log(possibleMoves)
             for(let i=0;i<possibleMoves.length;i++){
-                // newVal,previosPiece,color,currentBoard
-                // currentBoard[key] = currentBoard[possibleMoves[i]]
-                console.log(currentBoard[key].substring(1,currentBoard[key].length))
-                // if(currentBoard[key].substring(1,currentBoard[key].length) == "King" &&   check.movePieceCausesCheck(possibleMoves[i],this.color,currentBoard)){
-                //     console.log("in this")
-                //     let resp = check.canSaveCheckMate(key,possibleMoves[i],nextColor,currentBoard)
-                //     if(resp){
-                //         console.log(key)
-                //         console.log(resp)
-                //         return 
-                //     }
-                // }
+                let resp = check.canSaveCheckMate(key,possibleMoves[i],nextColor,currentBoard,currentBoard[possibleMoves[i]])    
+                if(resp){
+                    return false
+                }
 
-                // else{
-                    let resp = check.canSaveCheckMate(key,possibleMoves[i],nextColor,currentBoard,currentBoard[possibleMoves[i]])    
-                    console.log(resp)            
-                    if(resp){
-                        console.log(key)
-                        console.log(resp)
-                        return false
-                    }
-
-                // }
+           
             }
         }
     }
@@ -129,15 +106,14 @@ let Move = (event)=>{
     if(event.target.name != undefined && nextColor == event.target.name[0]){
         clearColor()
         pieces = createPiece(event.target.name.substring(1,event.target.name.length),event.target.id,event.target.name[0])
-        previosPiece = event.target.name
-        console.log("weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+        previosPosition = event.target.id
         previousHighlighted = pieces.getAllPossibleMoves(event.target.id,currentBoard,true)
      
     }
 
    
 
-    else if(pieces!=undefined && pieces.isValid(event.target.id,currentBoard) && ((!check.getInCheck() &&  !check.movePieceCausesCheck(pieces.getCurrentMove(),pieces.getColor(),currentBoard)) ||(check.getInCheck() && check.canSaveCheck(event.target.id,previosPiece,pieces.getColor(),currentBoard)))){
+    else if(pieces!=undefined && pieces.isValid(event.target.id,currentBoard) && ((!check.getInCheck() &&  !check.movePieceCausesCheck(pieces.getCurrentMove(),pieces.getColor(),currentBoard)) ||(check.getInCheck() && check.canSaveCheck(event.target.id,previosPosition,pieces.getColor(),currentBoard,currentBoard[previosPosition])))){
 
         clearColor()
         pieces.setNewMove(event.target.id)
@@ -162,14 +138,7 @@ let Move = (event)=>{
         }
         else{
             check.setInCheck(false)
-        }
-
-       
-       
-        // if(!checkMate(pieces)){
-        //     alert("checkmate")
-        // }
-       
+        }       
         pieces = undefined
 
        

@@ -78,7 +78,6 @@ class Rook{
             }
 
         }
-        console.log("rook ",allMoves)
         return allMoves
     }
     

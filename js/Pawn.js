@@ -33,10 +33,8 @@ class Pawn{
 
     getAllPossibleMoves(val,currentBoard,needBackground){
 
-        console.log(this.color)
 
 
-        console.log(val)
 
 
         let forwardMove = this.color == "B" ? [1]:[-1] 
@@ -46,8 +44,7 @@ class Pawn{
             forwardMove = this.color == "B" ? [1,2]:[-1,-2] 
         }
 
-        console.log(forwardMove)
-        console.log(val)
+   
 
         let row = val[0]
         let col = val[1]
@@ -65,8 +62,6 @@ class Pawn{
                 allMoves.push(newRow.toString() + newCol).toString()
 
                 if(needBackground){
-                    console.log("++++++++++++++++++")
-                    console.log(newRow.toString() + newCol.toString())
                     let cell = document.getElementById(newRow.toString() + newCol.toString())
                     cell.parentNode.style.opacity  = "0.3"
                 }
@@ -96,8 +91,7 @@ class Pawn{
             if(currentBoard[strRow + strCol] != undefined && currentBoard[strRow + strCol][0] != this.color && currentBoard[strRow + strCol] != "" && currentBoard[strRow + strCol].substring(currentBoard[strRow + strCol].length-4)!="King" ){
                 allMoves.push(row.toString() + col.toString())
                 if(needBackground){
-                    console.log("!!!!!!!!!!!!!!!!!!")
-                    console.log(newRow.toString() + newCol.toString())
+                    
                     let cell = document.getElementById(row.toString() + col.toString())
                     cell.parentNode.style.opacity  = "0.3"
                 }
@@ -106,7 +100,6 @@ class Pawn{
             }
         }
 
-        console.log("pawn",allMoves)    
         return allMoves
     }
 

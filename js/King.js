@@ -34,7 +34,6 @@ class King{
 
     getAllPossibleMoves(val,currentBoard,needBackground){
 
-        console.log(this.color)
 
 
         let movements = [[1,0],[-1,0],[0,1],[0,-1],[1,-1],[1,1],[-1,-1],[-1,1]]
@@ -65,7 +64,6 @@ class King{
             
 
         }
-        console.log("king",allMoves)
         return allMoves
 
     }
@@ -73,7 +71,6 @@ class King{
 
     isValid(newVal,currentBoard){
 
-        console.log("in this")
 
         let currentMoveRow = parseInt(this.currentMove[0])
         let currentMoveCol = parseInt(this.currentMove[1])

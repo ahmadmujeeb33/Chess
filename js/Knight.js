@@ -69,7 +69,6 @@ class Knight{
         }
 
        
-        console.log("knight",allMoves)
             return allMoves
     }
 

@@ -54,8 +54,6 @@ class Bishop{
                 if(currentBoard[currentPoint][0] != this.color && currentBoard[currentPoint] != ""){
                     allMoves.push(currentPoint)
                     if(needBackground){
-                        console.log("++++++++++++++++++")
-                        console.log(currentPoint)
                         let cell = document.getElementById(currentPoint)
                         cell.parentNode.style.opacity  = "0.3"
                     }
@@ -67,8 +65,6 @@ class Bishop{
                     allMoves.push(currentPoint)
 
                     if(needBackground){
-                        console.log("++++++++++++++++++")
-                        console.log(currentPoint)
                         let cell = document.getElementById(currentPoint)
                         cell.parentNode.style.opacity  = "0.3"
                     }
@@ -83,7 +79,6 @@ class Bishop{
             }
 
         }
-        console.log("bishop",allMoves)
             return allMoves
     }
 

@@ -11,7 +11,6 @@ class Queen {
 
 
     getCurrentMove(){
-        console.log("thissssssssssssss")
         return this.currentMove
     }
 
@@ -20,7 +19,6 @@ class Queen {
     }
 
     setNewMove(position){
-        console.log("in this",position)
         this.newMove = position
     }
 
@@ -41,7 +39,6 @@ class Queen {
         let allMoves = []
         let rookMoves = rook.getAllPossibleMoves(val,currentBoard,needBackground)
 
-        console.log(rookMoves)
 
         allMoves.push(...rookMoves)
        
@@ -54,7 +51,6 @@ class Queen {
         allMoves.push(...bishopMoves)
 
 
-        console.log("queen",allMoves)
         return allMoves
     }
 
