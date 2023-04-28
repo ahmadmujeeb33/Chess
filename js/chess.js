@@ -94,19 +94,32 @@ checkMate = ()=>{
             for(let i=0;i<possibleMoves.length;i++){
                 // newVal,previosPiece,color,currentBoard
                 // currentBoard[key] = currentBoard[possibleMoves[i]]
-                let resp = check.canSaveCheckMate(key,possibleMoves[i],nextColor,currentBoard)
-              
-                // currentBoard[key] = prevVal
-                if(resp){
-                    console.log(key)
-                    console.log(resp)
-                    return 
-                }
+                console.log(currentBoard[key].substring(1,currentBoard[key].length))
+                // if(currentBoard[key].substring(1,currentBoard[key].length) == "King" &&   check.movePieceCausesCheck(possibleMoves[i],this.color,currentBoard)){
+                //     console.log("in this")
+                //     let resp = check.canSaveCheckMate(key,possibleMoves[i],nextColor,currentBoard)
+                //     if(resp){
+                //         console.log(key)
+                //         console.log(resp)
+                //         return 
+                //     }
+                // }
+
+                // else{
+                    let resp = check.canSaveCheckMate(key,possibleMoves[i],nextColor,currentBoard,currentBoard[possibleMoves[i]])    
+                    console.log(resp)            
+                    if(resp){
+                        console.log(key)
+                        console.log(resp)
+                        return false
+                    }
+
+                // }
             }
         }
     }
 
-    alert("checkmate")
+    return true
 }
 
 
@@ -137,9 +150,15 @@ let Move = (event)=>{
         }
         
         if(check.isCheck(pieces.getColor(),currentBoard)){
-            checkMate(pieces)
-            check.setInCheck(true)
-            alert(nextColor + " is Check")
+            if(checkMate(pieces)){
+                alert("checkmate")
+
+            }
+            else{
+                check.setInCheck(true)
+                alert(nextColor + " is Check")
+            }
+          
         }
         else{
             check.setInCheck(false)

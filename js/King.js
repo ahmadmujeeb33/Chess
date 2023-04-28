@@ -34,6 +34,9 @@ class King{
 
     getAllPossibleMoves(val,currentBoard,needBackground){
 
+        console.log(this.color)
+
+
         let movements = [[1,0],[-1,0],[0,1],[0,-1],[1,-1],[1,1],[-1,-1],[-1,1]]
 
         let allMoves = []
@@ -46,7 +49,7 @@ class King{
            
             let currentPoint = (row + movements[i][0]).toString() + (col + movements[i][1]).toString()
 
-            if(currentBoard[currentPoint]!=undefined && currentBoard[currentPoint][0] != this.color && currentBoard[currentPoint].substring(currentBoard[currentPoint].length-4)!="King"){
+            if(currentBoard[currentPoint]!=undefined && currentBoard[currentPoint][0] != this.color ){
                 allMoves.push(currentPoint)
 
                 if(needBackground){
@@ -62,7 +65,7 @@ class King{
             
 
         }
-        console.log("bishop",allMoves)
+        console.log("king",allMoves)
         return allMoves
 
     }

@@ -30,10 +30,12 @@ class Check{
         const key = Object.keys(filteredObj)[0]
     
         if(val[0] == "B"){
+            console.log("weeeeeeeeeeee")
             this.blackKingPosition = key
         }
         
         else{
+            console.log("heeeeeeeeeee")
             this.whiteKingPosition = key
         }
     
@@ -138,33 +140,57 @@ class Check{
         return false
     }
 
-    canSaveCheckMate(newVal,prevVal,color,currentBoard){
+    canSaveCheckMate(currVal,newVal,color,currentBoard,previosPiece){
 
-        console.log(color)
+
+        console.log(currVal)
+        console.log(currentBoard[currVal])
         console.log(newVal)
         console.log(currentBoard[newVal])
 
 
+        let something = currentBoard[currVal] 
+        currentBoard[currVal] = ""
+        currentBoard[newVal] = something
 
-        let something = currentBoard[newVal] 
-        currentBoard[newVal] = currentBoard[prevVal]
-        currentBoard[prevVal] = something
+        console.log(currVal)
+        console.log(currentBoard[currVal])
+        console.log(newVal)
+        console.log(currentBoard[newVal])
 
-        let kingMove = color == "B" ? this.blackKingPosition : this.whiteKingPosition
         let attackingColor = color == "B"?"W":"B"
 
-        if(this.showCheck(kingMove,attackingColor,currentBoard)){
+        if(currentBoard[newVal].substring(1,currentBoard[newVal].length) == "King"){
+            console.log("!!!!!!!!!!!!!!!!!!!!!!!!")
+            console.log(color)
+            console.log(currentBoard)
+            this.getKingPosition(currentBoard,attackingColor)
+            console.log(this.blackKingPosition)
+            console.log(this.whiteKingPosition)
+        }
 
-            let otherthing =  currentBoard[newVal]
-            currentBoard[newVal] = something
-            currentBoard[prevVal] = otherthing
-            return true
+
+        let kingMove = color == "B" ? this.blackKingPosition : this.whiteKingPosition
+       
+
+        console.log(kingMove)
+
+     
+
+        if(this.showCheck(kingMove,attackingColor,currentBoard)){
+            console.log("in this")
+            currentBoard[currVal] = something
+            currentBoard[newVal] = previosPiece
+            return false
         }
        
-        let otherthing =  currentBoard[newVal]
-        currentBoard[newVal] = something
-        currentBoard[prevVal] = otherthing
-        return false
+        currentBoard[currVal] = something
+        currentBoard[newVal] = previosPiece
+
+        console.log(currentBoard)
+
+
+        return true
 
 
         
@@ -191,14 +217,23 @@ class Check{
 
     }
 
+    // kingMoveWillLeadToCheck(newVal,color,currentBoard){
+
+    //     let prevVal =  currentBoard[newVal]
+
+
+    // }
+
     movePieceCausesCheck(newVal,color,currentBoard){
 
-
+       console.log("in move pieces")
+       console.log(newVal)
 
         let prevVal =  currentBoard[newVal] 
         currentBoard[newVal] = ""
         let kingMove = color == "B" ? this.blackKingPosition : this.whiteKingPosition
         let attackingColor = color == "B"?"W":"B"
+
 
 
         if(this.showCheck(kingMove,attackingColor,currentBoard)){
