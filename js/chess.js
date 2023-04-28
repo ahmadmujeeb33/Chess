@@ -67,21 +67,10 @@ let createPiece = (pieceType,currentMove,color) => {
 
 let clearColor = ()=>{
 
-    console.log(previousHighlighted)
 
     for(cell in previousHighlighted){
 
-        console.log(cell)
         let position = document.getElementById(previousHighlighted[cell])
-
-        console.log(position)
-
-        let rowInt = parseInt(previousHighlighted[cell][0])
-        let colInt = parseInt(previousHighlighted[cell][1])
-
-        console.log(rowInt+colInt%2)
-
-        // position.parentNode.style.backgroundColor = (rowInt+colInt)%2==0 ? 'gray' : 'white';  
 
         position.parentNode.style.opacity  = "1"
 
@@ -91,6 +80,35 @@ let clearColor = ()=>{
 }
 
 
+checkMate = ()=>{ 
+    console.log(currentBoard)
+    console.log(nextColor)
+    for(let key in currentBoard){
+        console.log(currentBoard[key])
+        if(currentBoard[key][0] == nextColor){
+            console.log(key)
+            let pieces = createPiece(currentBoard[key].substring(1,currentBoard[key].length),key,nextColor)
+
+            let possibleMoves = pieces.getAllPossibleMoves(key,currentBoard,false)
+            // console.log(possibleMoves)
+            for(let i=0;i<possibleMoves.length;i++){
+                // newVal,previosPiece,color,currentBoard
+                // currentBoard[key] = currentBoard[possibleMoves[i]]
+                let resp = check.canSaveCheckMate(key,possibleMoves[i],nextColor,currentBoard)
+              
+                // currentBoard[key] = prevVal
+                if(resp){
+                    console.log(key)
+                    console.log(resp)
+                    return 
+                }
+            }
+        }
+    }
+
+    alert("checkmate")
+}
+
 
 
 let Move = (event)=>{
@@ -99,7 +117,8 @@ let Move = (event)=>{
         clearColor()
         pieces = createPiece(event.target.name.substring(1,event.target.name.length),event.target.id,event.target.name[0])
         previosPiece = event.target.name
-        previousHighlighted = pieces.getAllPossibleMoves(event,currentBoard)
+        console.log("weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+        previousHighlighted = pieces.getAllPossibleMoves(event.target.id,currentBoard,true)
      
     }
 
@@ -110,22 +129,31 @@ let Move = (event)=>{
         clearColor()
         pieces.setNewMove(event.target.id)
         movePiece(event)
-
         nextColor = pieces.getColor() == "W"?"B":"W"
+
+
         if(currentBoard[event.target.id].substring(1,currentBoard[event.target.id].length) == "King"){
             check.getKingPosition(currentBoard,nextColor)
         }
         
         if(check.isCheck(pieces.getColor(),currentBoard)){
+            checkMate(pieces)
             check.setInCheck(true)
             alert(nextColor + " is Check")
         }
         else{
             check.setInCheck(false)
         }
+
+       
+       
+        // if(!checkMate(pieces)){
+        //     alert("checkmate")
+        // }
+       
         pieces = undefined
 
-
+       
 
     }
 

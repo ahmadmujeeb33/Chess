@@ -42,6 +42,10 @@ class Check{
 
     showCheck(val,color,currentBoard){
 
+        console.log(color)
+        console.log(val)
+
+
 
         let kingMove = val
        
@@ -71,6 +75,7 @@ class Check{
 
 
                 if(pieces.has(currentBoard[row.toString()+col.toString()])){
+                    console.log("hereeeeeeeee")
                     return true
                     
                 }
@@ -131,6 +136,38 @@ class Check{
 
 
         return false
+    }
+
+    canSaveCheckMate(newVal,prevVal,color,currentBoard){
+
+        console.log(color)
+        console.log(newVal)
+        console.log(currentBoard[newVal])
+
+
+
+        let something = currentBoard[newVal] 
+        currentBoard[newVal] = currentBoard[prevVal]
+        currentBoard[prevVal] = something
+
+        let kingMove = color == "B" ? this.blackKingPosition : this.whiteKingPosition
+        let attackingColor = color == "B"?"W":"B"
+
+        if(this.showCheck(kingMove,attackingColor,currentBoard)){
+
+            let otherthing =  currentBoard[newVal]
+            currentBoard[newVal] = something
+            currentBoard[prevVal] = otherthing
+            return true
+        }
+       
+        let otherthing =  currentBoard[newVal]
+        currentBoard[newVal] = something
+        currentBoard[prevVal] = otherthing
+        return false
+
+
+        
     }
 
     canSaveCheck(newVal,previosPiece,color,currentBoard){
@@ -210,7 +247,7 @@ class Check{
 
 
 
-
+    
 
 
 

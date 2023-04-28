@@ -24,17 +24,20 @@ class Knight{
         this.newMove = position
     }
 
-    
+    setColor(color){
+        this.color = color
+    }
+
 
     getColor(){
         return this.color
     }
 
 
-    getAllPossibleMoves(event,currentBoard){
+    getAllPossibleMoves(val,currentBoard,needBackground){
 
-        let currentMoveRow = parseInt(event.target.id[0])
-        let currentMoveCol = parseInt(event.target.id[1])
+        let currentMoveRow = parseInt(val[0])
+        let currentMoveCol = parseInt(val[1])
 
         let movements = [
             [currentMoveRow+1, currentMoveCol+2],
@@ -49,24 +52,24 @@ class Knight{
 
         ];
 
-        console.log(movements)
         let allMoves = []
 
         for (let i = 0; i < movements.length; i++) {
             let row = movements[i][0].toString()
             let col = movements[i][1].toString()
-            console.log("row ",row)
-            console.log("col ",col)
             if (currentBoard[row + col] != undefined && currentBoard[row + col][0] != this.color) {
                 allMoves.push(row+col)
-                let cell = document.getElementById(row+col)
-                cell.parentNode.style.opacity  = "0.3"
+                if(needBackground){
+                    let cell = document.getElementById(row+col)
+                    cell.parentNode.style.opacity  = "0.3"
+                }
+              
 
             }
         }
 
        
-        console.log(allMoves)
+        console.log("knight",allMoves)
             return allMoves
     }
 

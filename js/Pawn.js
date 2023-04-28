@@ -21,23 +21,36 @@ class Pawn{
         this.newMove = position
     }
 
+    setColor(color){
+        this.color = color
+    }
+
     getColor(){
         return this.color
     }
 
   
 
-    getAllPossibleMoves(event,currentBoard){
+    getAllPossibleMoves(val,currentBoard,needBackground){
+
+        console.log(this.color)
+
+
+        console.log(val)
+
 
         let forwardMove = this.color == "B" ? [1]:[-1] 
         let allMoves = []
 
-        if(event.target.id[0] == '1' || event.target.id[0] == '6'){
+        if(val[0] == '1' || val[0] == '6'){
             forwardMove = this.color == "B" ? [1,2]:[-1,-2] 
         }
 
-        let row = event.target.id[0]
-        let col = event.target.id[1]
+        console.log(forwardMove)
+        console.log(val)
+
+        let row = val[0]
+        let col = val[1]
 
 
 
@@ -51,8 +64,12 @@ class Pawn{
                 
                 allMoves.push(newRow.toString() + newCol).toString()
 
-                let cell = document.getElementById(newRow.toString() + col)
-                cell.parentNode.style.opacity  = "0.3"
+                if(needBackground){
+                    console.log("++++++++++++++++++")
+                    console.log(newRow.toString() + newCol.toString())
+                    let cell = document.getElementById(newRow.toString() + newCol.toString())
+                    cell.parentNode.style.opacity  = "0.3"
+                }
             }
 
             
@@ -68,8 +85,8 @@ class Pawn{
 
        
         for (let i = 0; i < movements.length; i++) {
-            let row = parseInt(event.target.id[0]) + movements[i][0];
-            let col = parseInt(event.target.id[1]) + movements[i][1];
+            let row = parseInt(val[0]) + movements[i][0];
+            let col = parseInt(val[1]) + movements[i][1];
 
             let strRow = row.toString()
             let strCol = col.toString()
@@ -78,13 +95,19 @@ class Pawn{
 
             if(currentBoard[strRow + strCol] != undefined && currentBoard[strRow + strCol][0] != this.color && currentBoard[strRow + strCol] != "" && currentBoard[strRow + strCol].substring(currentBoard[strRow + strCol].length-4)!="King" ){
                 allMoves.push(row.toString() + col.toString())
-                let cell = document.getElementById(row.toString() + col.toString())
-                cell.parentNode.style.opacity  = "0.3"
+                if(needBackground){
+                    console.log("!!!!!!!!!!!!!!!!!!")
+                    console.log(newRow.toString() + newCol.toString())
+                    let cell = document.getElementById(row.toString() + col.toString())
+                    cell.parentNode.style.opacity  = "0.3"
+                }
+               
 
             }
         }
-            
-            return allMoves
+
+        console.log("pawn",allMoves)    
+        return allMoves
     }
 
       

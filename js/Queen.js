@@ -24,17 +24,22 @@ class Queen {
         this.newMove = position
     }
 
+    setColor(color){
+        this.color = color
+    }
+
+
   
 
     getColor(){
         return this.color
     }
 
-    getAllPossibleMoves(event,currentBoard){
+    getAllPossibleMoves(val,currentBoard,needBackground){
 
         let rook = new Rook(this.currentMove,this.color)
         let allMoves = []
-        let rookMoves = rook.getAllPossibleMoves(event,currentBoard)
+        let rookMoves = rook.getAllPossibleMoves(val,currentBoard,needBackground)
 
         console.log(rookMoves)
 
@@ -42,13 +47,14 @@ class Queen {
        
     
         let bishop = new Bishop(this.currentMove,this.color)
-        let bishopMoves = bishop.getAllPossibleMoves(event,currentBoard)
+        let bishopMoves = bishop.getAllPossibleMoves(val,currentBoard,needBackground)
 
 
 
         allMoves.push(...bishopMoves)
 
-        
+
+        console.log("queen",allMoves)
         return allMoves
     }
 

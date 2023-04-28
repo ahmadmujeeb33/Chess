@@ -27,17 +27,22 @@ class Bishop{
         return this.color
     }
 
+    setColor(color){
+        this.color = color
+    }
 
-    getAllPossibleMoves(event,currentBoard){
+
+    getAllPossibleMoves(val,currentBoard,needBackground){
 
         let movements = [[1,1],[1,-1],[-1,1],[-1,-1]]
 
         let allMoves = []
 
+
         for(let i=0;i<movements.length;i++){
 
-            let row = parseInt(event.target.id[0])
-            let col = parseInt(event.target.id[1])
+            let row = parseInt(val[0])
+            let col = parseInt(val[1])
 
             while((currentBoard[(row+movements[i][0]).toString() + (col+movements[i][1]).toString()]!=undefined)){
         
@@ -48,16 +53,26 @@ class Bishop{
 
                 if(currentBoard[currentPoint][0] != this.color && currentBoard[currentPoint] != ""){
                     allMoves.push(currentPoint)
-                    let cell = document.getElementById(currentPoint)
-                    cell.parentNode.style.opacity  = "0.3"
+                    if(needBackground){
+                        console.log("++++++++++++++++++")
+                        console.log(currentPoint)
+                        let cell = document.getElementById(currentPoint)
+                        cell.parentNode.style.opacity  = "0.3"
+                    }
+                  
                     break
                 }
     
                 else if(currentBoard[currentPoint][0] != this.color && currentBoard[currentPoint].substring(currentBoard[currentPoint].length-4)!="King"){
                     allMoves.push(currentPoint)
 
-                    let cell = document.getElementById(currentPoint)
-                    cell.parentNode.style.opacity  = "0.3"
+                    if(needBackground){
+                        console.log("++++++++++++++++++")
+                        console.log(currentPoint)
+                        let cell = document.getElementById(currentPoint)
+                        cell.parentNode.style.opacity  = "0.3"
+                    }
+                   
 
                 }
 
@@ -68,7 +83,7 @@ class Bishop{
             }
 
         }
-        console.log(allMoves)
+        console.log("bishop",allMoves)
             return allMoves
     }
 

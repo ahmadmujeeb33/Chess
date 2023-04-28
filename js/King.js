@@ -27,7 +27,12 @@ class King{
         return this.color
     }
 
-    getAllPossibleMoves(event,currentBoard){
+    setColor(color){
+        this.color = color
+    }
+
+
+    getAllPossibleMoves(val,currentBoard,needBackground){
 
         let movements = [[1,0],[-1,0],[0,1],[0,-1],[1,-1],[1,1],[-1,-1],[-1,1]]
 
@@ -35,8 +40,8 @@ class King{
 
         for(let i=0;i<movements.length;i++){
 
-            let row = parseInt(event.target.id[0])
-            let col = parseInt(event.target.id[1])
+            let row = parseInt(val[0])
+            let col = parseInt(val[1])
 
            
             let currentPoint = (row + movements[i][0]).toString() + (col + movements[i][1]).toString()
@@ -44,8 +49,12 @@ class King{
             if(currentBoard[currentPoint]!=undefined && currentBoard[currentPoint][0] != this.color && currentBoard[currentPoint].substring(currentBoard[currentPoint].length-4)!="King"){
                 allMoves.push(currentPoint)
 
-                let cell = document.getElementById(currentPoint)
-                cell.parentNode.style.opacity  = "0.3"
+                if(needBackground){
+                    let cell = document.getElementById(currentPoint)
+                    cell.parentNode.style.opacity  = "0.3"
+                }
+
+               
 
             }
 
@@ -53,6 +62,7 @@ class King{
             
 
         }
+        console.log("bishop",allMoves)
         return allMoves
 
     }
